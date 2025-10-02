@@ -70,7 +70,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-        'auth' => Authenticate::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
         'cache.headers' => SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -78,7 +78,8 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
-        'verified' => EnsureEmailIsVerified::class,
+       'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+          'isAdmin' => \App\Http\Middleware\IsAdmin::class,
 
         // --- middleware custom ---
         // daftarkan middleware admin yang kamu buat di app/Http/Middleware/AdminMiddleware.php

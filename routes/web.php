@@ -2,12 +2,25 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\LeadController;
 
-// halaman admin (hanya bisa diakses kalau sudah login DAN role admin)
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+// admin dashboard
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+        
+
+    Route::resource('leads', LeadController::class);
+   // Route::resource('admin/leads', LeadController::class);
+   Route::patch('leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.updateStatus');
+
 });
+
+
+
 
 // halaman utama diarahkan ke login
 Route::get('/', function () {
@@ -28,3 +41,5 @@ Route::middleware(['auth'])->group(function () {
 
 // auth route bawaan breeze
 require __DIR__.'/auth.php';
+
+
