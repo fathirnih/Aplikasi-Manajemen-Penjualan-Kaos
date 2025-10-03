@@ -4,6 +4,17 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\OrderController;
+
+//order
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::resource('admin/orders', OrderController::class);
+Route::get('admin/orders/create/{lead}', [OrderController::class, 'create'])->name('admin.orders.create');
+Route::post('admin/orders', [OrderController::class, 'store'])->name('admin.orders.store');
+    
+});
+
 
 // admin dashboard
 Route::middleware(['auth'])->group(function () {
@@ -12,11 +23,12 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.dashboard');
 
         
-
     Route::resource('leads', LeadController::class);
    // Route::resource('admin/leads', LeadController::class);
-   Route::patch('leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.updateStatus');
-
+    Route::patch('leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.updateStatus');
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('leads', LeadController::class);
+});
 });
 
 
@@ -41,5 +53,3 @@ Route::middleware(['auth'])->group(function () {
 
 // auth route bawaan breeze
 require __DIR__.'/auth.php';
-
-

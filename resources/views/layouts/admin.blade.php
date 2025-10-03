@@ -13,7 +13,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('dashboard') }}">Admin Panel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"   
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,6 +22,10 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="{{ route('leads.index') }}" class="nav-link">Leads</a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- Link ke Orders (contoh lead_id = 1) --}}
+                        <a href="{{ route('orders.index', 1) }}" class="nav-link">Orders</a>
                     </li>
                     <li class="nav-item d-flex align-items-center">
                         <!-- Settings Dropdown -->

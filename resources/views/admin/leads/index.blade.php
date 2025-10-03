@@ -37,11 +37,15 @@
                 <td>{{ $lead->alasan_pembelian }}</td>
                 <td>{{ ucfirst($lead->status) }}</td>
                 <td>
-                    <a href="{{ route('leads.edit', $lead) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('leads.destroy', $lead) }}" method="POST" class="d-inline">
-                        @csrf @method('DELETE')
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus lead ini?')">Hapus</button>
+                    <a href="{{ route('admin.leads.edit', $lead) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('admin.leads.destroy', $lead) }}" method="POST" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus lead ini?')">Hapus</button>
                     </form>
+
+                    @if($lead->status === 'follow-up')
+                    <a href="{{ route('admin.orders.create', $lead->id) }}" class="btn btn-success btn-sm mt-1">Buat Order</a>
+                    @endif
                 </td>
             </tr>
             @endforeach
